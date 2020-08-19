@@ -101,17 +101,22 @@ class _TopAreaState extends State<TopArea> {
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
-                        hint: Text('Select Town',style: TextStyle(
-                          color: pinkColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),),
-                        items: _dropDownValue.map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e),
+                        hint: Text(
+                          'Select Town',
+                          style: TextStyle(
+                            color: pinkColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
                           ),
-                        ).toList(),
+                        ),
+                        items: _dropDownValue
+                            .map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e),
+                              ),
+                            )
+                            .toList(),
                         onChanged: (String value) {
                           setState(() {
                             _value = value;

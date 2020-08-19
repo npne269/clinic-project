@@ -76,20 +76,23 @@ class Policy extends StatelessWidget {
                   }
                   return Center(child: CircularProgressIndicator());
                 })),
-        FlatButton(
-            minWidth: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(15),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            color: pinkColor,
-            onPressed: () {},
-            child: Text(
-              'ACCEPT AND CONTINUE',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
-            ))
+        ButtonTheme(
+          minWidth: MediaQuery.of(context).size.width,
+          child: FlatButton(
+              // minWidth: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(15),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              color: pinkColor,
+              onPressed: () {},
+              child: Text(
+                'ACCEPT AND CONTINUE',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              )),
+        )
       ],
     );
   }
