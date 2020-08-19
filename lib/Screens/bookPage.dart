@@ -3,6 +3,32 @@ import 'package:clinic_app/global.dart';
 import 'package:flutter/material.dart';
 
 class BookPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Stack(
+        children: [
+          TopArea(),
+          Center(
+            child: Container(
+              height: 100,
+              child: DatePicker(
+                initialDate: DateTime.now(),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TopArea extends StatefulWidget {
+  @override
+  _TopAreaState createState() => _TopAreaState();
+}
+
+class _TopAreaState extends State<TopArea> {
   final List<Map> _clinicData = [
     {
       'title': 'Couples',
@@ -21,59 +47,113 @@ class BookPage extends StatelessWidget {
       'data': '67',
     },
   ];
+  List<String> _dropDownValue = [
+    'New work',
+    'Damak',
+    'Kakadvitta',
+    'Rampur',
+  ];
+  String _value;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [blueColorDark, blueColorLight],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter),
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [blueColorDark, blueColorLight],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Fertility Clinic Network',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                      color: blueColorLight),
+                ),
+                Text(
+                  'Book your first appointment',
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  width: double.maxFinite,
+                  color: backgroundColor,
+                  child: Center(
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        iconSize: 40,
+                        iconEnabledColor: blueColorLight,
+                        style: TextStyle(
+                          color: pinkColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        hint: Text('Select Town',style: TextStyle(
+                          color: pinkColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),),
+                        items: _dropDownValue.map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ),
+                        ).toList(),
+                        onChanged: (String value) {
+                          setState(() {
+                            _value = value;
+                          });
+                          print(_value);
+                        },
+                        value: _value,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Column(
-                  children: List.generate(5, (i) {
-                    return (i==0)?SizedBox(
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: List.generate(5, (i) {
+              return (i == 0)
+                  ? SizedBox(
                       height: 40,
-                    ):ListTile(
+                    )
+                  : ListTile(
                       leading: Text(
-                        _clinicData[i-1]['data'],
+                        _clinicData[i - 1]['data'],
                         style: TextStyle(
                             color: pinkColor,
                             fontSize: 24,
                             fontWeight: FontWeight.w600),
                       ),
                       title: Text(
-                        _clinicData[i-1]['title'],
+                        _clinicData[i - 1]['title'],
                         style: TextStyle(
                             color: blueColorDark,
                             fontSize: 18,
                             fontWeight: FontWeight.w600),
                       ),
                     );
-                  }),
-                ),
-              ),
-            ],
+            }),
           ),
-          Center(
-            child: Container(
-              height: 100,
-              child: DatePicker(
-                initialDate: DateTime.now(),
-              ),
-            ),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
