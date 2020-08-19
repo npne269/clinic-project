@@ -77,10 +77,9 @@ class Policy extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 })),
         FlatButton(
-            minWidth: MediaQuery.of(context).size.width,
+            // minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.all(15),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             color: pinkColor,
             onPressed: () {},
             child: Text(
