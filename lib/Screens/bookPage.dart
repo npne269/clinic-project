@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class BookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: [
           TopArea(),
           Center(
@@ -61,7 +61,7 @@ class _TopAreaState extends State<TopArea> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.only(left:10,top:MediaQuery.of(context).padding.top,),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [blueColorDark, blueColorLight],
