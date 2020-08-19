@@ -1,4 +1,4 @@
-import 'package:clinic_app/homePage.dart';
+import 'package:clinic_app/pages/homePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
