@@ -17,7 +17,8 @@ class _HomePageState extends State<HomePage> {
     CouplePage(),
     PlanPage(),
     DocumentPage(),
-  ];
+    ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
