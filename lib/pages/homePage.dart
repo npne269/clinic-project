@@ -3,6 +3,7 @@ import 'package:clinic_app/Screens/couplePage.dart';
 import 'package:clinic_app/Screens/documentPage.dart';
 import 'package:clinic_app/Screens/planPage.dart';
 import 'package:clinic_app/global.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     CouplePage(),
     PlanPage(),
     DocumentPage(),
-    ];
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
             title: Text('Book'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
+            icon: Icon(Icons.person),
             title: Text('Couple'),
           ),
           BottomNavigationBarItem(

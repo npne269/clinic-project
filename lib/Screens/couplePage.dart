@@ -1,7 +1,9 @@
+import 'package:clinic_app/Screens/coupleDetailPage.dart';
+import 'package:clinic_app/components/commonappbar.dart';
 import 'package:flutter/material.dart';
-import 'package:clinic_app/global.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+
 import '../global.dart';
 
 class CouplePage extends StatelessWidget {
@@ -9,39 +11,11 @@ class CouplePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        child: Container(
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top,
-              left: MediaQuery.of(context).padding.top),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Fertility Clinic Network',
-                style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.white.withOpacity(0.7),
-                ),
-              ),
-              Text(
-                'couple',
-                style: TextStyle(
-                    color: headingcolor,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                end: Alignment.bottomCenter,
-                begin: Alignment.topCenter,
-                colors: [blueColorDark, blueColorLight]),
-          ),
-        ),
+        child: CommonAppBar(title: 'Couple'),
         preferredSize: Size(MediaQuery.of(context).size.width, 100.0),
       ),
       body: Container(
+        color: backgroundColor,
         padding: EdgeInsets.all(10),
         child: Builder(
           builder: (context) {
@@ -53,13 +27,20 @@ class CouplePage extends StatelessWidget {
   }
 }
 
-class Policy extends StatelessWidget {
+class Policy extends StatefulWidget {
   final String mdFileName;
 
   Policy({Key key, @required this.mdFileName})
       : assert(
             mdFileName.contains('.md'), 'the file must be with extension .md'),
         super(key: key);
+
+  @override
+  _PolicyState createState() => _PolicyState();
+}
+
+class _PolicyState extends State<Policy> {
+  bool swap = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,7 +49,7 @@ class Policy extends StatelessWidget {
             child: FutureBuilder(
                 future:
                     Future.delayed(Duration(milliseconds: 100)).then((value) {
-                  return rootBundle.loadString('assets/$mdFileName');
+                  return rootBundle.loadString('assets/${widget.mdFileName}');
                 }),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -84,7 +65,10 @@ class Policy extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
               color: pinkColor,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CoupleDetail()));
+              },
               child: Text(
                 'ACCEPT AND CONTINUE',
                 style: TextStyle(
