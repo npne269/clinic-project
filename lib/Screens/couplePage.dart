@@ -57,8 +57,8 @@ class _PolicyState extends State<Policy> {
                   }
                   return Center(child: CircularProgressIndicator());
                 })),
-        ButtonTheme(
-          minWidth: MediaQuery.of(context).size.width,
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
           child: FlatButton(
               // minWidth: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(15),

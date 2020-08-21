@@ -1,4 +1,5 @@
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/pages/pickTime.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +18,8 @@ class DatePicker extends StatelessWidget {
         DateTime date = initialDate.add(Duration(days: i));
         return InkWell(
           onTap: () {
-            print('lol $date');
+            Navigator.push(context, 
+            MaterialPageRoute(builder: (_)=>PickedTimePage(date: date,)));
           },
           child: Card(
             shape: RoundedRectangleBorder(
