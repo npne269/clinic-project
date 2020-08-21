@@ -1,10 +1,7 @@
-import 'package:clinic_app/components/commonappbar.dart';
+import 'package:clinic_app/components/components.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'dart:io';
-
-import '../global.dart';
 
 class DocumentPage extends StatefulWidget {
   @override
@@ -30,58 +27,20 @@ class _DocumentPageState extends State<DocumentPage> {
       ),
       body: Column(
         children: [
-          UploadButton(
+          BigButton(
             btnLabel: 'Upload Document',
             btnPressed: () => _openFileExplorer(),
+            btnIcon: Icons.add_circle,
           ),
-          UploadButton(
+          BigButton(
             btnPressed:(){},
             btnLabel:  'Upload Monitor',
+            btnIcon: Icons.add_circle,
           ),
           Expanded(
             child: FileShow(files: file),
           )
         ],
-      ),
-    );
-  }
-}
-
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    Key key,
-    @required Function btnPressed,
-    @required String btnLabel,
-  })  : _btnLabel = btnLabel,
-        _btnPressed = btnPressed,
-        super(key: key);
-  final Function _btnPressed;
-  final String _btnLabel;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: FlatButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: pinkColor,
-          onPressed: _btnPressed,
-          child: ListTile(
-              leading: Icon(
-                Icons.add_circle,
-                size: 30,
-                color: Colors.white,
-              ),
-              title: Text(
-                _btnLabel,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600),
-              )),
-        ),
       ),
     );
   }

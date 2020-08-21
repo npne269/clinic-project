@@ -1,9 +1,5 @@
-import 'package:clinic_app/Screens/bookPage.dart';
-import 'package:clinic_app/Screens/couplePage.dart';
-import 'package:clinic_app/Screens/documentPage.dart';
-import 'package:clinic_app/Screens/planPage.dart';
+import 'package:clinic_app/Screens/screens.dart';
 import 'package:clinic_app/global.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
