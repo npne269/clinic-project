@@ -19,10 +19,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: IndexedStack(
+        children: _pages,
+        index: _currentIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: backgroundColor,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white.withOpacity(1),
         selectedItemColor: pinkColor,
         unselectedItemColor: inActiveColor,
         items: [
