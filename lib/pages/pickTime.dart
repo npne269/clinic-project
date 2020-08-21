@@ -1,4 +1,5 @@
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/pages/paymentPage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -30,6 +31,11 @@ class _PickedTimePageState extends State<PickedTimePage> {
           _pickedTimeFrom = locTime;
         } else if (x == 2) {
           _pickedTimeTo = locTime;
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>PaymentPage(
+            date: widget.date,
+            time1: _pickedTimeFrom,
+            time2: _pickedTimeTo,
+          ),),);
         } else {
           _pickedTimeFrom = TimeOfDay.now();
           _pickedTimeTo = TimeOfDay.now();
