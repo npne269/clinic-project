@@ -10,6 +10,7 @@ class _CoupleDetailState extends State<CoupleDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Container(
           color: backgroundColor,

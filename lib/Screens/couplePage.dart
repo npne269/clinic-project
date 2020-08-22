@@ -1,5 +1,5 @@
-import 'package:clinic_app/Screens/coupleDetailPage.dart';
 import 'package:clinic_app/components/commonappbar.dart';
+import 'package:clinic_app/pages/CoupleForm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -10,6 +10,7 @@ class CouplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: PreferredSize(
         child: CommonAppBar(title: 'Couple'),
         preferredSize: Size(MediaQuery.of(context).size.width, 100.0),
@@ -67,7 +68,7 @@ class _PolicyState extends State<Policy> {
               color: pinkColor,
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CoupleDetail()));
+                    MaterialPageRoute(builder: (context) => CoupleForm()));
               },
               child: Text(
                 'ACCEPT AND CONTINUE',

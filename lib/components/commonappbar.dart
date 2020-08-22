@@ -13,9 +13,8 @@ class CommonAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top,
-          left: MediaQuery.of(context).padding.top),
+      padding:
+          EdgeInsets.only(top: 30, left: MediaQuery.of(context).padding.top),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,6 +22,7 @@ class CommonAppBar extends StatelessWidget {
             'Fertility Clinic Network',
             style: TextStyle(
               fontSize: 17,
+              // fontFamily: 'Quicksandsshg',
               color: Colors.white.withOpacity(0.7),
             ),
           ),

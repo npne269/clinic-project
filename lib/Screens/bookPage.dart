@@ -6,6 +6,7 @@ class BookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           TopArea(),
@@ -61,7 +62,11 @@ class _TopAreaState extends State<TopArea> {
       children: [
         Expanded(
           child: Container(
-            padding: EdgeInsets.only(left:10,right: 10,top:MediaQuery.of(context).padding.top,),
+            padding: EdgeInsets.only(
+              left: 10,
+              right: 10,
+              top: MediaQuery.of(context).padding.top,
+            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [blueColorDark, blueColorLight],
