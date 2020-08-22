@@ -1,21 +1,15 @@
-import 'package:clinic_app/components/commonappbar.dart';
+import 'package:clinic_app/components/components.dart';
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/modal/allAppProvider.dart';
 import 'package:clinic_app/pages/maledetail.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class CoupleForm extends StatefulWidget {
-  @override
-  _CoupleFormState createState() => _CoupleFormState();
-}
-
-class _CoupleFormState extends State<CoupleForm> {
-  DateTime _dateofbirth;
-  DateTime _dateofbleed;
-  String _name, _surname, _email, _id;
-  double _weight, _height, _periodcycle;
+class CoupleForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var form = Provider.of<FormDataProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
           child: CommonAppBar(
@@ -36,222 +30,88 @@ class _CoupleFormState extends State<CoupleForm> {
                     fontSize: 24,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                validator: (input) {
-                  if (input.isEmpty) {
-                    return 'Please type name';
-                  }
-                  return null;
+              CustomFormField(
+                errorText: form.fullname.error,
+                labelText: 'Full Name',
+                onSubmited: (value) {
+                  form.fullNameField(value);
                 },
-                onSaved: (input) => _name = input,
-                style: TextStyle(fontSize: 20),
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'Name',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                validator: (input) {
-                  if (input.isEmpty) {
-                    return 'Please type surname';
-                  }
-                  return null;
+              CustomFormField(
+                onSubmited: (value) {
+                  form.dateOfBirthField(value);
                 },
-                onSaved: (input) => _surname = input,
-                style: TextStyle(fontSize: 20),
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'Surname',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now().add(Duration(seconds: 2)),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2021))
-                      .then((date) {
-                    setState(() {
-                      _dateofbirth = date;
-                    });
-                  });
-                },
-                child: Container(
-                  width: double.maxFinite,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 3, color: pinkColor),
-                  ),
-                  child: Text(
-                    _dateofbirth == null
-                        ? 'Date of Birth'
-                        : DateFormat.yMMMd().format(DateTime.now()),
-                    style: TextStyle(fontSize: 17, color: blueColorLight),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
+                errorText: form.dob.error,
+                labelText: 'Date of Birth',
               ),
               Row(
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      validator: (input) {
-                        if (input.isEmpty) {
-                          return 'Please type height in cm';
-                        }
-                        return null;
-                      },
-                      onSaved: (input) => _height = input as double,
-                      style: TextStyle(fontSize: 20),
-                      keyboardType: TextInputType.number,
-                      cursorColor: pinkColor,
-                      decoration: InputDecoration(
-                          labelText: 'Height in cm',
-                          labelStyle:
-                              TextStyle(fontSize: 17, color: blueColorLight),
-                          focusedBorder: focusborder,
-                          enabledBorder: outlineborder),
+                    child: CustomFormField(
+                      onSubmited: (value) => form.height = value,
+                      errorText: form.height.error,
+                      labelText: 'Height in cm',
                     ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Expanded(
-                    child: TextFormField(
-                      validator: (input) {
-                        if (input.isEmpty) {
-                          return 'Please type weight in KG';
-                        }
-                        return null;
-                      },
-                      onSaved: (input) => _weight = input as double,
-                      style: TextStyle(fontSize: 20),
-                      keyboardType: TextInputType.number,
-                      cursorColor: pinkColor,
-                      decoration: InputDecoration(
-                          labelText: 'Weight in KG',
-                          labelStyle:
-                              TextStyle(fontSize: 17, color: blueColorLight),
-                          focusedBorder: focusborder,
-                          enabledBorder: outlineborder),
+                    child: CustomFormField(
+                      onSubmited: (value) => form.weight = value,
+                      errorText: form.weight.error,
+                      labelText: 'Weight in cm',
                     ),
                   )
                 ],
               ),
-              SizedBox(
-                height: 10,
+              CustomFormField(
+                onSubmited: (value) => form.emailField(value),
+                errorText: form.email.error,
+                labelText: 'Email Address',
               ),
-              TextFormField(
-                validator: (input) {
-                  if (input.isEmpty) {
-                    return 'Please type email';
-                  }
-                  return null;
-                },
-                onSaved: (input) => _email = input,
-                style: TextStyle(fontSize: 20),
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
+              CustomFormField(
+                onSubmited: (value) => form.dateOfBleedField(value),
+                errorText: form.dateofbleed.error,
+                labelText: 'First Bleeding Date',
               ),
-              SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now().add(Duration(seconds: 2)),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2021))
-                      .then((date) {
-                    setState(() {
-                      _dateofbleed = date;
-                    });
-                  });
-                },
-                child: Container(
-                  width: double.maxFinite,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 3, color: pinkColor),
-                  ),
-                  child: Text(
-                    _dateofbleed == null
-                        ? 'First Bleeding Day'
-                        : DateFormat.yMMMd().format(DateTime.now()),
-                    style: TextStyle(fontSize: 17, color: blueColorLight),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                validator: (input) {
-                  if (input.isEmpty) {
-                    return 'Please type Cycle period';
-                  }
-                  return null;
-                },
-                onSaved: (input) => _periodcycle = input as double,
-                style: TextStyle(fontSize: 20),
-                keyboardType: TextInputType.number,
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'cycle period',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
+              CustomFormField(
+                onSubmited: (value) => form.periodCycle = value,
+                errorText: form.periodCycle.error,
+                labelText: 'Period Cycle in Day',
               ),
               SizedBox(
                 height: 40,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                    padding: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: pinkColor,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CoupleForm2()));
-                    },
-                    child: Text(
-                      'continue'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w600),
-                    )),
+              BigButton(
+                btnPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CoupleForm2()));
+                },
+                btnLabel: 'Continue'.toUpperCase(),
               ),
+              // SizedBox(
+              //   width: MediaQuery.of(context).size.width,
+              //   child: FlatButton(
+              //       padding: EdgeInsets.all(15),
+              //       shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(10)),
+              //       color: pinkColor,
+              // onPressed: () {
+              //   Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => CoupleForm2()));
+              // },
+              //       child: Text(
+              //         'continue'.toUpperCase(),
+              //         style: TextStyle(
+              //             color: Colors.white,
+              //             fontSize: 22,
+              //             letterSpacing: 1.5,
+              //             fontWeight: FontWeight.w600),
+              //       )),
+              // ),
             ],
           ),
         ),

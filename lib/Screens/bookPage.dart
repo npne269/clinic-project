@@ -1,6 +1,8 @@
 import 'package:clinic_app/components/datePicker.dart';
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/modal/allAppProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BookPage extends StatelessWidget {
   @override
@@ -24,38 +26,7 @@ class BookPage extends StatelessWidget {
   }
 }
 
-class TopArea extends StatefulWidget {
-  @override
-  _TopAreaState createState() => _TopAreaState();
-}
-
-class _TopAreaState extends State<TopArea> {
-  final List<Map> _clinicData = [
-    {
-      'title': 'Couples',
-      'data': '12345',
-    },
-    {
-      'title': 'Years',
-      'data': '32',
-    },
-    {
-      'title': 'Clinics',
-      'data': '803',
-    },
-    {
-      'title': 'Equiped Members',
-      'data': '67',
-    },
-  ];
-  List<String> _dropDownValue = [
-    'New work',
-    'Damak',
-    'Kakadvitta',
-    'Rampur',
-  ];
-  String _value;
-
+class TopArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -81,7 +52,7 @@ class _TopAreaState extends State<TopArea> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.5,
-                      color: blueColorLight),
+                      color: Colors.white.withOpacity(0.7)),
                 ),
                 Text(
                   'Book your first appointment',
@@ -97,38 +68,37 @@ class _TopAreaState extends State<TopArea> {
                   width: double.maxFinite,
                   color: backgroundColor,
                   child: Center(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        iconSize: 40,
-                        iconEnabledColor: blueColorLight,
-                        style: TextStyle(
-                          color: pinkColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        hint: Text(
-                          'Select Town',
+                    child: Consumer<AppointmentDataProvider>(
+                      builder: (context,data,child)=> DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          value: data.coupleTown,
+                          iconSize: 40,
+                          iconEnabledColor: blueColorLight,
                           style: TextStyle(
                             color: pinkColor,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
+                          hint: Text(
+                            'Select Town',
+                            style: TextStyle(
+                              color: pinkColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          items: data.dropdownItems
+                              .map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (String value){
+                            data.coupleTown = value;
+                          },
                         ),
-                        items: _dropDownValue
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (String value) {
-                          setState(() {
-                            _value = value;
-                          });
-                          print(_value);
-                        },
-                        value: _value,
                       ),
                     ),
                   ),
@@ -144,22 +114,24 @@ class _TopAreaState extends State<TopArea> {
                   ? SizedBox(
                       height: 40,
                     )
-                  : ListTile(
-                      leading: Text(
-                        _clinicData[i - 1]['data'],
-                        style: TextStyle(
-                            color: pinkColor,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600),
+                  : Consumer<BasicAppDataProvider>(
+                    builder: (_,data,widget)=>ListTile(
+                        leading: Text(
+                          data.clinicData[i - 1]['data'],
+                          style: TextStyle(
+                              color: pinkColor,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        title: Text(
+                          data.clinicData[i - 1]['title'],
+                          style: TextStyle(
+                              color: blueColorDark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
-                      title: Text(
-                        _clinicData[i - 1]['title'],
-                        style: TextStyle(
-                            color: blueColorDark,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    );
+                  );
             }),
           ),
         ),

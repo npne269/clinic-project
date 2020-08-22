@@ -31,6 +31,7 @@ dependencies:
   flutter_markdown: ^0.4.3
   file_picker: ^1.13.3
   intl: ^0.16.1
+  provider: ^4.3.2+1
 
 dev_dependencies:
   flutter_test:

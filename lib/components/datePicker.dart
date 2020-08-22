@@ -1,7 +1,9 @@
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/modal/allAppProvider.dart';
 import 'package:clinic_app/pages/pickTime.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DatePicker extends StatelessWidget {
   final DateTime initialDate;
@@ -18,8 +20,14 @@ class DatePicker extends StatelessWidget {
         DateTime date = initialDate.add(Duration(days: i));
         return InkWell(
           onTap: () {
-            Navigator.push(context, 
-            MaterialPageRoute(builder: (_)=>PickedTimePage(date: date,)));
+            Provider.of<AppointmentDataProvider>(context, listen: false)
+                .appointmentDate = date;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => PickedTimePage(),
+              ),
+            );
           },
           child: Card(
             shape: RoundedRectangleBorder(

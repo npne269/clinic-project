@@ -6,7 +6,7 @@ class BigButton extends StatelessWidget {
     Key key,
     @required Function btnPressed,
     @required String btnLabel,
-    @required IconData btnIcon,
+     IconData btnIcon,
   })  : _btnLabel = btnLabel,
         _btnIcon = btnIcon,
         _btnPressed = btnPressed,
@@ -26,13 +26,13 @@ class BigButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            _btnIcon!=null?Icon(
               _btnIcon,
               size: 30,
               color: Colors.white,
-            ),
+            ):Container(),
             SizedBox(
-              width: 20,
+              width: _btnIcon!=null?20:0,
             ),
             Text(
               _btnLabel,

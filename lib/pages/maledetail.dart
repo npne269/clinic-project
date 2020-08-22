@@ -1,4 +1,3 @@
-// import 'package:clinic_app/Screens/coupleDetailPage.dart';
 import 'package:clinic_app/components/components.dart';
 import 'package:clinic_app/global.dart';
 import 'package:clinic_app/pages/coupleDetailPage.dart';

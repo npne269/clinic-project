@@ -1,22 +1,10 @@
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/modal/allAppProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class PaymentPage extends StatelessWidget {
-  final DateTime _date;
-  final TimeOfDay _t1;
-  final TimeOfDay _t2;
-
-  const PaymentPage(
-      {Key key,
-      @required DateTime date,
-      @required TimeOfDay time1,
-      @required TimeOfDay time2})
-      : _date = date,
-        _t1 = time1,
-        _t2 = time2,
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +21,28 @@ class PaymentPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              DateFormat('EEE MMM d').format(_date).toString(),
-              style: TextStyle(
-                  color: pinkColor, fontSize: 24, fontWeight: FontWeight.bold),
+            Consumer<AppointmentDataProvider>(
+              builder: (_, data, widget) => Text(
+                DateFormat('EEE MMM d').format(data.appointmentDate).toString(),
+                style: TextStyle(
+                    color: pinkColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
-            Text(
-              '${_t1.format(context)} - ${_t2.format(context)}',
-              style: TextStyle(fontSize: 20),
+            Consumer<AppointmentDataProvider>(
+              builder: (_, data, widget) => Text(
+                data.appointmentTimeFrom != null &&
+                        data.appointmentTimeTo != null
+                    ? '${data.appointmentTimeFrom.format(context)} - ${data.appointmentTimeTo.format(context)}'
+                    : '',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -51,11 +50,13 @@ class PaymentPage extends StatelessWidget {
             SizedBox(
               height: 100,
             ),
-            Text('£ 300',style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-
-            ),),
+            Text(
+              '£ 300',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
