@@ -75,7 +75,7 @@ class _PolicyState extends State<Policy> {
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600),
-              )),
+              ),),
         )
       ],
     );
