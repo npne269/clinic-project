@@ -1,9 +1,5 @@
-import 'package:clinic_app/Screens/bookPage.dart';
-import 'package:clinic_app/Screens/couplePage.dart';
-import 'package:clinic_app/Screens/documentPage.dart';
-import 'package:clinic_app/Screens/planPage.dart';
+import 'package:clinic_app/Screens/screens.dart';
 import 'package:clinic_app/global.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,10 +19,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: IndexedStack(
+        children: _pages,
+        index: _currentIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: backgroundColor,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white.withOpacity(1),
         selectedItemColor: pinkColor,
         unselectedItemColor: inActiveColor,
         items: [
