@@ -1,8 +1,9 @@
 import 'package:clinic_app/components/components.dart';
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/modal/allAppProvider.dart';
 import 'package:clinic_app/pages/coupleDetailPage.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CoupleForm2 extends StatefulWidget {
   @override
@@ -10,10 +11,27 @@ class CoupleForm2 extends StatefulWidget {
 }
 
 class _CoupleForm2State extends State<CoupleForm2> {
-  DateTime _dateofbirth;
-  DateTime _dateofbleed;
+  final formKey = GlobalKey<FormState>();
+  final _dateOfBirth = TextEditingController();
+  final _fullName = TextEditingController();
+  final _email = TextEditingController();
+  final _weight = TextEditingController();
+  final _height = TextEditingController();
+  final _phoneNumber = TextEditingController();
+
+  @override
+  void dispose() {
+    _fullName.dispose();
+    _dateOfBirth.dispose();
+    _email.dispose();
+    _weight.dispose();
+    _height.dispose();
+    _phoneNumber.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+    var form = Provider.of<FormDataProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
           child: CommonAppBar(
@@ -24,149 +42,129 @@ class _CoupleForm2State extends State<CoupleForm2> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'HUSBAND:',
-                style: TextStyle(
-                    color: pinkColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                style: TextStyle(fontSize: 20),
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'Name',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                style: TextStyle(fontSize: 20),
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'Surname',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now().add(Duration(seconds: 2)),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2021))
-                      .then((date) {
-                    setState(() {
-                      _dateofbirth = date;
-                    });
-                  });
-                },
-                child: Container(
-                  width: double.maxFinite,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 3, color: pinkColor),
-                  ),
-                  child: Text(
-                    _dateofbirth == null
-                        ? 'Date of Birth'
-                        : DateFormat.yMMMd().format(DateTime.now()),
-                    style: TextStyle(fontSize: 17, color: blueColorLight),
-                  ),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Husband:',
+                  style: TextStyle(
+                      color: pinkColor,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(fontSize: 20),
-                      keyboardType: TextInputType.number,
-                      cursorColor: pinkColor,
-                      decoration: InputDecoration(
-                          labelText: 'Height in cm',
-                          labelStyle:
-                              TextStyle(fontSize: 17, color: blueColorLight),
-                          focusedBorder: focusborder,
-                          enabledBorder: outlineborder),
+                CustomFormField(
+                  controller: _fullName,
+                  labelText: 'Full Name',
+                  hintText: 'Nitesh Neupane',
+                ),
+                CustomFormField(
+                  controller: _dateOfBirth,
+                  keyBoardType: TextInputType.datetime,
+                  hintText: 'YYYYMMDD',
+                  // onSubmited: (String value) {
+                  //   print('date is $value');
+                  //   form.dateOfBirth = DateTime.parse(value);
+                  // },
+                  validator: (v) {
+                    if (v.isNotEmpty) {
+                      if (!(v.length == 8)) {
+                        return 'Please Use format YYYYMMDD';
+                      } else {
+                        return null;
+                      }
+                    }
+                    return 'Please fill the form';
+                  },
+                  labelText: 'Date of Birth',
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomFormField(
+                        controller: _height,
+                        keyBoardType: TextInputType.number,
+                        hintText: '145',
+                        // onSubmited: (value) {
+                        //   form.height = value;
+                        // },
+                        labelText: 'Height in cm',
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(fontSize: 20),
-                      keyboardType: TextInputType.number,
-                      cursorColor: pinkColor,
-                      decoration: InputDecoration(
-                          labelText: 'Weight in KG',
-                          labelStyle:
-                              TextStyle(fontSize: 17, color: blueColorLight),
-                          focusedBorder: focusborder,
-                          enabledBorder: outlineborder),
+                    SizedBox(
+                      width: 10,
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextField(
-                style: TextStyle(fontSize: 20),
-                cursorColor: pinkColor,
-                decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: TextStyle(fontSize: 17, color: blueColorLight),
-                    focusedBorder: focusborder,
-                    enabledBorder: outlineborder),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                    padding: EdgeInsets.all(15),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: pinkColor,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CoupleDetail()));
-                    },
-                    child: Text(
-                      'continue'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w600),
-                    )),
-              ),
-            ],
+                    Expanded(
+                      child: CustomFormField(
+                        controller: _weight,
+                        keyBoardType: TextInputType.number,
+                        hintText: '55',
+                        // onSubmited: (value) {
+                        //   form.weight = value;
+                        //   print('lola ' + value);
+                        // },
+                        labelText: 'Weight in kg',
+                      ),
+                    )
+                  ],
+                ),
+                CustomFormField(
+                  controller: _email,
+                  keyBoardType: TextInputType.emailAddress,
+                  hintText: 'hint@gmail.com',
+                  validator: (v) {
+                    if (!v.contains(RegExp(
+                        r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"))) {
+                      return 'Please enter valid email';
+                    } else {
+                      return null;
+                    }
+                  },
+                  // onSubmited: (value) => form.email = (value),
+                  labelText: 'Email Address',
+                ),
+                CustomFormField(
+                  controller: _phoneNumber,
+                  keyBoardType: TextInputType.phone,
+                  hintText: '981xxxxxxx',
+                  // onSubmited: (value) {
+                  //   form.phoneNumber = value;
+                  // },
+                  labelText: 'Phone Number',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                BigButton(
+                  btnPressed: () {
+                    if (formKey.currentState.validate()) {
+                      Map<String,dynamic> personData = {
+                         'name':_fullName.text,
+                         'gender':'M',
+                         'dob':DateTime.parse(_dateOfBirth.text),
+                         'height': double.parse(_height.text),
+                         'weight': double.parse(_weight.text),
+                         'email':_email.text,
+                         'phone':_phoneNumber.text,
+                      };
+                      form.addPeople(personData);
+                      form.saveForm();
+                      // form.addPeople('F');
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CoupleDetail()
+                        ),
+                      );
+                    } else {
+                      print('something');
+                    }
+                  },
+                  btnLabel: 'Continue'.toUpperCase(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

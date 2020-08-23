@@ -18,9 +18,21 @@ class People{
     this.id,
     this.phoneNumber,
   });
+  factory People.fromJson(Map data){
+    return People(
+      id: data['id']!=null?data['id']:'no id',
+      name: data['name'],
+      gender: data['gender'],
+      dob: data['dob'],
+      height: data['height'] ,
+      weight: data['weight'] ,
+      email: data['email'],
+      phoneNumber: data['phone']
+    );
+  }
 
   String calculateBmi(){
-     return (weight/(height*height)).toStringAsFixed(2);
+     return (weight/(height*height*0.01*0.01)).toStringAsFixed(2);
   }
   double calculateAge(){
     return (DateTime.now().difference(dob).inHours) /8760;
@@ -30,13 +42,31 @@ class People{
 class Couple{
   List<People> couple;
   DateTime bleedingDate;
-  DateTime cycleDay;
+  String cycleDay;
 
   Couple({
     this.couple,
     this.bleedingDate,
     this.cycleDay
   });
+
+  factory Couple.fromJson(Map<String,dynamic> data){
+    return Couple(
+      couple: data['couple'],
+      bleedingDate: data['bleedingDate'],
+      cycleDay: data['cycleDay'],
+    );
+  }
+
+  // void addCoupleData(List<People> cop,DateTime bleedDate, String cycleDay){
+  //   Couple(
+
+  //   );
+  //   this.couple = cop;
+  //   this.bleedingDate = bleedDate;
+  //   this.cycleDay = cycleDay;
+    
+  // }
 
    getCoupleData(){
      return Couple(
@@ -63,7 +93,7 @@ class Couple{
          ),
        ],
        bleedingDate: DateTime(2019,10,12),
-       cycleDay: DateTime(2019,10,12)
+       cycleDay: '25',
      ); 
   }
 }

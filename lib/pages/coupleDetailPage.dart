@@ -1,13 +1,15 @@
 import 'package:clinic_app/components/components.dart';
 import 'package:clinic_app/global.dart';
+import 'package:clinic_app/modal/allAppProvider.dart';
 import 'package:clinic_app/modal/data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CoupleDetail extends StatelessWidget {
-  final Couple couple = Couple().getCoupleData();
   @override
   Widget build(BuildContext context) {
+    final Couple couple = Provider.of<FormDataProvider>(context).couple;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -25,8 +27,8 @@ class CoupleDetail extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CoupleDetailTop(
-                        gender: couple.couple[0].gender,
-                        name: couple.couple[0].name,
+                        gender: couple.couple[1].gender,
+                        name: couple.couple[1].name,
                       ),
                     ),
                     SizedBox(
@@ -34,8 +36,8 @@ class CoupleDetail extends StatelessWidget {
                     ),
                     Expanded(
                       child: CoupleDetailTop(
-                        gender: couple.couple[1].gender,
-                        name: couple.couple[1].name,
+                        gender: couple.couple[0].gender,
+                        name: couple.couple[0].name,
                       ),
                     ),
                   ],
@@ -49,7 +51,7 @@ class CoupleDetail extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CoupleDetailsList(
-                      coupleData: couple.couple[0],
+                      coupleData: couple.couple[1],
                     ),
                   ),
                   SizedBox(
@@ -57,7 +59,7 @@ class CoupleDetail extends StatelessWidget {
                   ),
                   Expanded(
                     child: CoupleDetailsList(
-                      coupleData: couple.couple[1],
+                      coupleData: couple.couple[0],
                       bleedDay: couple.bleedingDate,
                       cycleDay: couple.cycleDay,
                     ),
@@ -81,7 +83,7 @@ class CoupleDetail extends StatelessWidget {
 class CoupleDetailsList extends StatelessWidget {
   final People _coupleData;
   final DateTime bleedDay;
-  final DateTime cycleDay;
+  final String cycleDay;
   const CoupleDetailsList({
     Key key,
     @required People coupleData,
@@ -89,6 +91,7 @@ class CoupleDetailsList extends StatelessWidget {
     this.cycleDay,
   })  : _coupleData = coupleData,
         super(key: key);
+        
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +152,7 @@ class CoupleDetailsList extends StatelessWidget {
                       'Cycle Days:',
                       style: lightbluestyle,
                     ),
-                    Text('${DateFormat('d').format(bleedDay)} days'),
+                    Text('$cycleDay days'),
                   ],
                 )
         ]);
